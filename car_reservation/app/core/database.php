@@ -3,26 +3,29 @@
 
 require_once __DIR__ . '/../config/config.php';
 
-class Database
-{
-    private static ?PDO $instance = null;
+class Database {
+    private $pdo;
 
-    public static function getConnection(): PDO
-    {
-        if (self::$instance === null) {
-            $dsn = 'pgsql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME;
+    public function __construct() {
+        $config = require __DIR__ . '/../config/config.php';
 
-            try {
-                self::$instance = new PDO($dsn, DB_USER, DB_PASS, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]);
-            } catch (PDOException $e) {
-                // ak sa nevie pripojiť k DB, zobrazí chybovú hlášku
-                die('Chyba pripojenia k databáze: ' . $e->getMessage());
-            }
-        }
+        $dsn = "pgsql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}";
 
-        return self::$instance;
+        $this->pdo = new PDO($dsn, $config['user'], $config['password'], [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
     }
+
+    public function query($sql, $params = []) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    public function lastInsertId() {
+        return $this->pdo->lastInsertId();
+    }
+
+
+
 }

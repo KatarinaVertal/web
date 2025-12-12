@@ -1,15 +1,28 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // public/index.php
 
 require_once __DIR__ . '/../app/core/database.php';
 
 // ziskame pripojenie k DB
-$db = Database::getConnection();
+$db = new Database();
 
 // skúšobný dotaz – nech vieme, že DB žije
 $stmt = $db->query('SELECT version() AS db_version');
 $row = $stmt->fetch();
 $dbVersion = $row['db_version'] ?? 'neznáma verzia';
+
+// $result = $db->query("SELECT * FROM pouzivatel LIMIT 5");
+// $data = $result->fetchAll();
+
+// echo "<pre>";
+// print_r($data);
+// echo "</pre>";
+
+
 ?>
 <!DOCTYPE html>
 <html lang="sk">
