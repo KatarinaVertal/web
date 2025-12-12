@@ -5,70 +5,77 @@ $selected = $_GET['selected_vehicle'] ?? '';
 <div class="card">
     <h1>Vytvoriť rezerváciu</h1>
 
-    <!-- FILTRE VOZIDIEL -->
-    <div class="filter-grid">
-        <select id="filterTyp">
-            <option value="">Typ vozidla</option>
-            <option value="SEDAN">Sedan</option>
-            <option value="HATCHBACK">Hatchback</option>
-            <option value="KOMBI">Kombi</option>
-            <option value="SUV">SUV</option>
-            <option value="CABRIO">Cabrio</option>
-            <option value="PICKUP">Pickup</option>
+    <form id="reservationForm" method="POST" action="php/create_reservation.php">
+
+        <!-- 🔵 DÁTUMY PRESUNUTÉ HORE -->
+        <label class="tag">Začiatok prenájmu</label>
+        <input type="datetime-local" name="datum_od" required>
+
+        <label class="tag">Koniec prenájmu</label>
+        <input type="datetime-local" name="datum_do" required>
+
+        <button type="button" id="loadVehiclesBtn" style="margin: 1rem 0; background:#444; color:white;">
+        Načítať dostupné vozidlá
+        </button>
+        <div id="statusMsg" style="margin:0.5rem 0; color:green; font-weight:bold;"></div>
+
+
+
+        <!-- 🔵 FILTRE VOZIDIEL -->
+        <div class="filter-grid" style="margin-top:1rem;">
+            <select id="filterTyp">
+                <option value="">Typ vozidla</option>
+                <option value="SEDAN">Sedan</option>
+                <option value="HATCHBACK">Hatchback</option>
+                <option value="KOMBI">Kombi</option>
+                <option value="SUV">SUV</option>
+                <option value="CABRIO">Cabrio</option>
+                <option value="PICKUP">Pickup</option>
+            </select>
+
+            <select id="filterZnacka">
+                <option value="">Značka</option>
+            </select>
+
+            <select id="filterModel">
+                <option value="">Model</option>
+            </select>
+
+            <select id="filterMiesta">
+                <option value="">Počet miest</option>
+            </select>
+        </div>
+
+        <!-- 🔵 INFO O VOZIDLE -->
+        <div id="vehicleInfo" class="card" style="display:none; margin-top:1rem;">
+            <h3>Informácie o vozidle</h3>
+            <p><strong>Značka:</strong> <span id="infoZnacka"></span></p>
+            <p><strong>Model:</strong> <span id="infoModel"></span></p>
+            <p><strong>SPZ:</strong> <span id="infoSPZ"></span></p>
+            <p><strong>Počet miest:</strong> <span id="infoMiesta"></span></p>
+            <p><strong>Typ:</strong> <span id="infoTyp"></span></p>
+        </div>
+
+        <!-- 🔵 VYBER VOZIDLA -->
+        <label class="tag" style="margin-top:1rem;">Vyber vozidlo</label>
+        <select name="id_vozidla" required id="vehicleSelect">
+            <option value="">Vyberte vozidlo</option>
         </select>
 
-        <select id="filterZnacka">
-            <option value="">Značka</option>
+        <!-- 🔵 NOTIFIKÁCIA -->
+        <label class="tag">Notifikácia</label>
+        <select name="preference_notifikacii" required>
+            <option value="NONE">Žiadna</option>
+            <option value="EMAIL">Email</option>
+            <option value="SMS">SMS</option>
         </select>
 
-        <select id="filterModel">
-            <option value="">Model</option>
-        </select>
+        <!-- 🔵 SUBMIT -->
+        <button type="submit" style="margin-top:1rem;background:#2563eb;color:white;">
+            Vytvoriť rezerváciu
+        </button>
 
-        <select id="filterMiesta">
-            <option value="">Počet miest</option>
-        </select>
-    </div>
-
-
-    <div id="vehicleInfo" class="card" style="display:none; margin-top:1rem;">
-        <h3>Informácie o vozidle</h3>
-        <p><strong>Značka:</strong> <span id="infoZnacka"></span></p>
-        <p><strong>Model:</strong> <span id="infoModel"></span></p>
-        <p><strong>SPZ:</strong> <span id="infoSPZ"></span></p>
-        <p><strong>Počet miest:</strong> <span id="infoMiesta"></span></p>
-        <p><strong>Typ:</strong> <span id="infoTyp"></span></p>
-    </div>
-
- <form id="reservationForm" method="POST" action="php/create_reservation.php">
-
-    <label class="tag">Vyber vozidlo</label>
-    <select name="id_vozidla" required id="vehicleSelect">
-        <option value="">Vyberte vozidlo</option>
-    </select>
-
-    <div id="vehicleInfo" class="card" style="display:none; margin-top:1rem;">
-        ...
-    </div>
-
-    <label class="tag">Začiatok prenájmu</label>
-    <input type="datetime-local" name="datum_od" required>
-
-    <label class="tag">Koniec prenájmu</label>
-    <input type="datetime-local" name="datum_do" required>
-
-    <label class="tag">Notifikácia</label>
-    <select name="preference_notifikacii" required>
-        <option value="NONE">Žiadna</option>
-        <option value="EMAIL">Email</option>
-        <option value="SMS">SMS</option>
-    </select>
-
-    <button type="submit" style="margin-top:1rem;background:#2563eb;color:white;">
-        Vytvoriť rezerváciu
-    </button>
-
-</form>
+    </form>
 </div>
 
 <script>
