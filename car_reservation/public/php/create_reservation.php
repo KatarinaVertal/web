@@ -8,8 +8,8 @@ $db = new Database();
 $userId = 2;
 
 // Dáta z formulára
-$datum_od = $_POST['datum_od'];
-$datum_do = $_POST['datum_do'];
+$datum_od = $_POST['datum_od'] . " 00:00:00";
+$datum_do = $_POST['datum_do'] . " 23:59:59";
 $notif = $_POST['preference_notifikacii'];
 $id_vozidla = $_POST['id_vozidla'];
 

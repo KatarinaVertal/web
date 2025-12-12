@@ -9,10 +9,10 @@ $selected = $_GET['selected_vehicle'] ?? '';
 
         <!-- 🔵 DÁTUMY PRESUNUTÉ HORE -->
         <label class="tag">Začiatok prenájmu</label>
-        <input type="datetime-local" name="datum_od" required>
+        <input type="date" name="datum_od" required>
 
         <label class="tag">Koniec prenájmu</label>
-        <input type="datetime-local" name="datum_do" required>
+        <input type="date" name="datum_do" required>
 
         <button type="button" id="loadVehiclesBtn" style="margin: 1rem 0; background:#444; color:white;">
             Načítať dostupné vozidlá
@@ -219,7 +219,7 @@ document.getElementById("loadVehiclesBtn").addEventListener("click", async () =>
             msg.innerText = "✖ Žiadne vozidlá nie sú dostupné v tomto termíne.";
         } else {
             msg.style.color = "green";
-            msg.innerText = "✔ Načítané dostupné vozidlá pre zvolený termín.";
+            msg.innerText = "✔ Vyberte z databázy dostupných vozidiel pre zvolený termín.";
         }
 
     } catch {
