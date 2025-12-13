@@ -219,7 +219,7 @@ document.getElementById("loadVehiclesBtn").addEventListener("click", async () =>
             msg.innerText = "✖ Žiadne vozidlá nie sú dostupné v tomto termíne.";
         } else {
             msg.style.color = "green";
-            msg.innerText = "✔ Vyberte z databázy dostupných vozidiel pre zvolený termín.";
+            msg.innerText = "Vyberte z databázy dostupných vozidiel pre zvolený termín.";
         }
 
     } catch {
